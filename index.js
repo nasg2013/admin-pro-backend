@@ -11,22 +11,17 @@ const app = express();
 //cors
 app.use(cors());
 
+//lectura y parseo del body
+app.use(express.json());
+
 //Base de datos
 dbConnection();
 
 //User: nestor
 //pass: 8319H6eCvmu7jK9A
 //Rutas
-app.get('/', (req, res) => {
-
-    res.json({
-        ok: true,
-        msj: 'Hola mundo'
-    });
-
-});
-
-
+app.use('/api/usuarios', require('./routes/usuarios.routes'));
+app.use('/api/login', require('./routes/auth.routes'));
 
 //seleccionar puesto donde quiere correr el backend
 app.listen(process.env.PORT, () => {
