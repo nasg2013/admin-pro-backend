@@ -21,7 +21,12 @@ dbConnection();
 //pass: 8319H6eCvmu7jK9A
 //Rutas
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
+app.use('/api/hospitales', require('./routes/hospitales.routes'));
+app.use('/api/medicos', require('./routes/medicos.routes'));
 app.use('/api/login', require('./routes/auth.routes'));
+app.use('/api/busqueda', require('./routes/busqueda.routes'));
+app.use('/api/upload', require('./routes/upload.routes'));
+
 
 //seleccionar puesto donde quiere correr el backend
 app.listen(process.env.PORT, () => {

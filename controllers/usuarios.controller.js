@@ -7,19 +7,36 @@ const Usuario = require('../models/usuario.model');
 //Fin de importaciones
 
 //obtiene todos los usuarios activos
-const getUsuarios = async(req, res) => {
+const getUsuarios = async(req, res = response) => {
 
-        const usuarios = await (await Usuario.find({ activo: true }, 'nombre email role google'));
+        const desde = Number(req.query.desde) || 0;
+
+        // const usuarios = await Usuario
+        //     .find({ activo: true }, 'nombre email role google')
+        //     .skip(desde)
+        //     .limit(5);
+
+        // const total = await Usuario.count();
+
+        const [usuarios, total] = await Promise.all([
+            Usuario
+            .find({ activo: true }, 'nombre email role google img')
+            .skip(desde)
+            .limit(5),
+            Usuario.countDocuments()
+        ]);
+
 
         res.json({
             ok: true,
-            usuarios
+            usuarios,
+            total
         });
 
     } //fin obtener usuarios
 
 //obtiene todos los usuarios
-const getAllUsuarios = async(req, res) => {
+const getAllUsuarios = async(req, res = response) => {
 
         const usuarios = await Usuario.find({}, 'nombre email role google activo');
 
@@ -31,7 +48,7 @@ const getAllUsuarios = async(req, res) => {
     } //fin obtener usuarios
 
 //Crea un usuario
-const crearUsuario = async(req, res) => {
+const crearUsuario = async(req, res = response) => {
 
         const { email, password } = req.body;
 
@@ -75,7 +92,7 @@ const crearUsuario = async(req, res) => {
 
     } //fin de crear usuario
 
-const actualizarUsuario = async(req, res) => {
+const actualizarUsuario = async(req, res = response) => {
 
         const usuarioId = req.params.id;
 
@@ -126,7 +143,7 @@ const actualizarUsuario = async(req, res) => {
     } //fin obtener usuarios
 
 //borrarusuario
-const borrarUsuario = async(req, res) => {
+const borrarUsuario = async(req, res = response) => {
 
         const usuarioId = req.params.id;
 
@@ -162,7 +179,7 @@ const borrarUsuario = async(req, res) => {
     } // fin borrar usuario
 
 //desactivarusuario
-const desactivarUsuario = async(req, res) => {
+const desactivarUsuario = async(req, res = responsees) => {
 
         const usuarioId = req.params.id;
 
