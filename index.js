@@ -19,6 +19,9 @@ dbConnection();
 
 //User: nestor
 //pass: 8319H6eCvmu7jK9A
+
+//directorio publico
+app.use(express.static('public'));
 //Rutas
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use('/api/hospitales', require('./routes/hospitales.routes'));

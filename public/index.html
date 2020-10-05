@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="924681969112-feb60jnfvs0sdv689dipi5blen39alob.apps.googleusercontent.com">
+    <title>Document</title>
+
+    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/originals/75/4c/83/754c8326eb097ee1bb1b55253229948a.png">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="container jumbotron ">
+        <div class="jumbotron row text-center ">
+            <div class="col-12">
+                <h1 class="display-4">Bienvenido</h1>
+                <p class="lead">Api - Test node js admin</p>
+            </div>
+
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="col-12">
+                <a href="#" onclick="signOut();">Sign out</a>
+            </div>
+            <div class="col-12">
+                <hr class="my-4">
+                <p>Copyright © 2020 / Todos los derechos reservados para <a href="https://www.linkedin.com/in/n%C3%A9stor-s%C3%A1nchez-g-34ab891a6/"> Néstor Sánchez</a></p>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log(id_token);
+        };
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+            });
+        };
+    </script>
+
+
+</body>
+
+</html>
