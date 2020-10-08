@@ -31,11 +31,15 @@ router.post('/', [
 ], crearHospital);
 
 //put user
-router.put('/:id', [],
+router.put('/:id', [
+        validarJwt,
+        check('nombre', 'El nombre del hospital es requerido').not().isEmpty(),
+        validarCampos
+    ],
     actualizarHospital
 );
 
-//dellete user
-router.delete('/:id', borrarHospital);
+//dellete
+router.delete('/:id', validarJwt, borrarHospital);
 
 module.exports = router;
