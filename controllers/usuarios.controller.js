@@ -37,9 +37,7 @@ const getUsuarios = async(req, res = response) => {
 
 //obtiene todos los usuarios
 const getAllUsuarios = async(req, res = response) => {
-
         const usuarios = await Usuario.find({}, 'nombre email role google activo');
-
         res.json({
             ok: true,
             usuarios
