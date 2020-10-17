@@ -91,25 +91,18 @@ const crearUsuario = async(req, res = response) => {
     } //fin de crear usuario
 
 const actualizarUsuario = async(req, res = response) => {
-
         const usuarioId = req.params.id;
-
         try {
-
             const usuarioDB = await Usuario.findById(usuarioId);
-
             if (!usuarioDB) {
                 return res.status(404).json({
                     ok: false,
                     msg: 'El usuario ID no existe'
                 });
             }
-
             //Actualizacines a BD
             const { password, google, email, ...campos } = req.body;
-
             if (usuarioDB.email !== email) {
-
                 //Verifica que el correo no exista
                 const existEmail = await Usuario.findOne({ email });
                 if (existEmail) {
@@ -119,15 +112,14 @@ const actualizarUsuario = async(req, res = response) => {
                     });
                 }
             }
-
-            campos.email = email;
-            const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, campos, { new: true });
-
+            if (!usuarioDB.google) {
+                campos.email = email;
+            }
+            var usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, campos, { new: true });
             res.json({
                 ok: true,
                 usuario: usuarioActualizado
             });
-
         } catch (error) {
             console.log(error);
             res.status(500).json({

@@ -10,44 +10,29 @@ const { googleVerify } = require('../helpers/google-verify');
 //Fin de importaciones
 
 const login = async(req, res = response) => {
-
     const { email, password } = req.body;
-
     try {
-
-
         const usuarioDB = await Usuario.findOne({ email });
-
         if (!usuarioDB) {
-
             res.status(404).json({
                 ok: false,
-                msg: 'Error inesperado... revisar logs email'
+                msg: 'Error. Correo o email inválido'
             });
         }
-
         //Verificar contraseña
         const validPassword = bcrypt.compareSync(password, usuarioDB.password);
-
         if (!validPassword) {
             res.status(404).json({
                 ok: false,
-                msg: 'Error inesperado... revisar logs contraseña'
+                msg: 'Error. Correo o email inválido'
             });
         }
-
         //Generar token
         const token = await generarJWT(usuarioDB.id);
-
-
-
         res.json({
             ok: true,
             token
         });
-
-
-
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -59,16 +44,11 @@ const login = async(req, res = response) => {
 
 
 const googleSingIn = async(req, res = response) => {
-
     const googleToken = req.body.token;
-
     try {
-
         const { name, email, picture } = await googleVerify(googleToken);
-
         const usuarioDB = await Usuario.findOne({ email });
         let usuario;
-
         if (!usuarioDB) {
             //si no existe
             usuario = new Usuario({
@@ -83,18 +63,14 @@ const googleSingIn = async(req, res = response) => {
             usuario = usuarioDB;
             usuario.google = true;
         }
-
         //guardar en BD
         await usuario.save();
-
         //Generar token
         const token = await generarJWT(usuario.id);
-
         res.json({
             ok: true,
             token
         });
-
     } catch (error) {
         console.log(error);
         res.status(401).json({
@@ -102,18 +78,14 @@ const googleSingIn = async(req, res = response) => {
             msg: 'Token no es correcto'
         });
     }
-
-
 }; //Fin login
 
 const renewToken = async(req, res = response) => {
-
     const usuarioId = req.usuarioId;
     //Generar token
     const token = await generarJWT(usuarioId);
     //Usuario
     const usuarioDB = await Usuario.findById(usuarioId);
-
     res.json({
         ok: true,
         token,
