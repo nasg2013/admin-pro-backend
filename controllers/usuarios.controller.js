@@ -112,50 +112,48 @@ const actualizarUsuario = async(req, res = response) => {
                     });
                 }
             }
+
             if (!usuarioDB.google) {
                 campos.email = email;
+            } else if (usuarioDB.email !== email) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'El usuario de google, no puede cambiar el correo'
+                });
             }
-            var usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, campos, { new: true });
+
+            const usuarioActualizado = await Usuario.findByIdAndUpdate(usuarioId, campos, { new: true });
             res.json({
                 ok: true,
                 usuario: usuarioActualizado
             });
+
         } catch (error) {
             console.log(error);
             res.status(500).json({
                 ok: false,
                 msg: 'Error inesperado... revisar logs'
             });
-
         }
-
-
     } //fin obtener usuarios
 
 //borrarusuario
 const borrarUsuario = async(req, res = response) => {
-
         const usuarioId = req.params.id;
-
         try {
-
             const usuarioDB = await Usuario.findById(usuarioId);
-
             if (!usuarioDB) {
                 return res.status(404).json({
                     ok: false,
                     msg: 'El usuario ID no existe'
                 });
             }
-
             //elimina usuario de la base de datos
             await Usuario.findByIdAndDelete(usuarioId);
-
             res.json({
                 ok: true,
                 msg: 'Usuario borrado'
             });
-
         } catch (error) {
             console.log(error);
             res.status(500).json({
@@ -163,9 +161,6 @@ const borrarUsuario = async(req, res = response) => {
                 msg: 'Error inesperado... revisar logs'
             });
         }
-
-
-
     } // fin borrar usuario
 
 //desactivarusuario
