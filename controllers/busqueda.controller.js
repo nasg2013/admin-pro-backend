@@ -2,7 +2,6 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 
-const { generarJWT } = require('../helpers/jwt');
 const Usuario = require('../models/usuario.model');
 const Hospital = require('../models/hospital.model');
 const Medico = require('../models/medico.model');
@@ -53,6 +52,8 @@ const getDocumentosColeccion = async(req, res = response) => {
         const tabla = req.params.tabla;
         const busqueda = req.params.busqueda;
         const regEx = RegExp(busqueda, 'i');
+        const desde = Number(req.query.desde) || 0;
+        var total = 0;
 
         let data = [];
         switch (tabla) {
@@ -66,7 +67,18 @@ const getDocumentosColeccion = async(req, res = response) => {
                     .populate('usuario', 'nombre img');
                 break;
             case 'usuarios':
-                data = await Usuario.find({ nombre: regEx });
+                console.log(desde);
+                if (desde === -1) {
+                    data = await Usuario.find({ nombre: regEx });
+                } else {
+                    [data, total] = await Promise.all([
+                        Usuario
+                        .find({ nombre: regEx }, 'nombre email role google img')
+                        .skip(desde)
+                        .limit(5),
+                        Usuario.countDocuments()
+                    ]);
+                }
                 break;
             default:
                 return res.status(400).json({
@@ -76,7 +88,8 @@ const getDocumentosColeccion = async(req, res = response) => {
         }
         res.json({
             ok: true,
-            resultado: data
+            resultado: data,
+            total
         });
 
     } //fin obtener 

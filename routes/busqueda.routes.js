@@ -10,10 +10,11 @@ const { validarJwt } = require('../middlewares/validar-jwt.middleware');
 
 const router = Router();
 
-//get query ?palabra=palabra
+//get query /busqueda?palabra=palabra
+//busca considencias en toda la base de datos
 router.get('/', validarJwt, getBusqueda);
 
-//get params /params
+//get params /busqueda/coleccion/usuarios/palabra
 router.get('/:palabra', validarJwt, getBusqueda);
 
 //get params
