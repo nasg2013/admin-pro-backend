@@ -2,4 +2,6 @@ node_modules/
 .env
 README.md
 package-lock.json
-uploads/
+uploads/hospitales/
+uploads/medicos/
+uploads/usuarios/
