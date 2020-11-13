@@ -44,5 +44,4 @@ router.delete('/:id', validarJwt, borrarUsuario);
 //dellete user
 router.delete('/desactivar/:id', desactivarUsuario);
 
-
 module.exports = router;
