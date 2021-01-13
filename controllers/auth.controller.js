@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario.model');
 const { generarJWT } = require('../helpers/jwt');
 const { googleVerify } = require('../helpers/google-verify');
+const { getMenu } = require('../helpers/menu');
 
 
 //Fin de importaciones
@@ -31,7 +32,8 @@ const login = async(req, res = response) => {
         const token = await generarJWT(usuarioDB.id);
         res.json({
             ok: true,
-            token
+            token,
+            menu: getMenu(usuarioDB.role)
         });
     } catch (error) {
         console.log(error);
@@ -69,7 +71,8 @@ const googleSingIn = async(req, res = response) => {
         const token = await generarJWT(usuario.id);
         res.json({
             ok: true,
-            token
+            token,
+            menu: getMenu(usuario.role)
         });
     } catch (error) {
         console.log(error);
@@ -84,12 +87,14 @@ const renewToken = async(req, res = response) => {
     const usuarioId = req.usuarioId;
     //Generar token
     const token = await generarJWT(usuarioId);
+
     //Usuario
     const usuarioDB = await Usuario.findById(usuarioId);
     res.json({
         ok: true,
         token,
-        usuarioDB
+        usuarioDB,
+        menu: getMenu(usuarioDB.role)
     });
 };
 
