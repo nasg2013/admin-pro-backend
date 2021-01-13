@@ -1,64 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Adminpro</title>
+    <base href="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-signin-client_id" content="924681969112-feb60jnfvs0sdv689dipi5blen39alob.apps.googleusercontent.com">
-    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/originals/75/4c/83/754c8326eb097ee1bb1b55253229948a.png">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="./assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link id="theme" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Google autentification -->
+    <script src="https://apis.google.com/js/platform.js"></script>
 
+<link rel="stylesheet" href="styles.17980367325db90c58a2.css"></head>
 
-</head>
+<body class="fix-header card-no-border fix-sidebar">
 
-<body>
-    <div class="container jumbotron ">
-        <div class="jumbotron row text-center ">
-            <div class="col-12">
-                <h1 class="display-4">Bienvenido</h1>
-                <p class="lead">Api - Test node js admin</p>
-            </div>
-
-            <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <div class="col-12">
-                <a href="#" onclick="signOut();">Sign out</a>
-            </div>
-            <div class="col-12">
-                <hr class="my-4">
-                <p>Copyright © 2020 / Todos los derechos reservados para <a href="https://www.linkedin.com/in/n%C3%A9stor-s%C3%A1nchez-g-34ab891a6/"> Néstor Sánchez</a></p>
-            </div>
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Admin Pro</p>
         </div>
     </div>
 
-    </div>
+    <app-root></app-root>
 
 
-    <script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="./assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="./assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="./assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="./assets/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="./assets/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="./assets/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="./assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="./assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="./assets/js/custom.js"></script>
+    <!-- ============================================================== -->
+    <!-- Chartjs -->
+    <!-- ============================================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-            var id_token = googleUser.getAuthResponse().id_token;
-            console.log(id_token);
-        };
-
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function() {
-                console.log('User signed out.');
-            });
-        };
-    </script>
-
-
-</body>
+<script src="runtime.6b5fff22200f1c4e16c2.js" defer></script><script src="polyfills.35a5ca1855eb057f016a.js" defer></script><script src="main.ca746d01a1980c8e4ad1.js" defer></script></body>
 
 </html>

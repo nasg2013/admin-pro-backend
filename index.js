@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const path = require('path');
 
 const cors = require('cors');
 
@@ -29,6 +30,10 @@ app.use('/api/medicos', require('./routes/medicos.routes'));
 app.use('/api/login', require('./routes/auth.routes'));
 app.use('/api/busqueda', require('./routes/busqueda.routes'));
 app.use('/api/upload', require('./routes/upload.routes'));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
 
 
 //seleccionar puesto donde quiere correr el backend
